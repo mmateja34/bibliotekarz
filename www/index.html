@@ -4,63 +4,41 @@
 <head>
 	<title></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="css/themes/bibliotekarz.min.css" />
-	<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
-<!-- 	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" /> -->
-	<script src="js/jquery-2.1.4.min.js"></script>
-	<script src="js/jquery.mobile-1.4.5.min.js"></script>
 	<script src="js/pgb.js"></script>			
 	<script src="cordova.js"></script>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body onload="init()">
-	<div data-role="page" id="homepage">
-	  <div data-role="header">
-	    <h1>Bibliotekarz</h1>
-	    <button><a href="#addBook">Dodaj książkę</a></button>
-	  </div>
-
+	<div data-role="page" id="home">
+	<div data-role="header">
+    	<h1>Bibliotekarz</h1>
+    	<a href="#addBook">Dodaj książkę</a>
+  	</div>
 	  <div data-role="main" class="ui-content">
-	    <p>Moje książki</p>
 	    <table>
 	    	<tr>
-		    	<th>Tytuł książki</th>
-		    	<th>Termin oddania</th>
-		    	<th>Opłata</th>
-		    </tr>
-		    <tr>
-		    	<td></td>
-		    	<td></td>
-		    	<td></td>
-		    </tr>
+	    		<th>Tytuł</th>
+	    		<th>Data oddania</th>
+	    	</tr>
+	    	<tr>
+	    		<td></td>
+	    		<td></td>
+	    	</tr>
+	    </table>
 	  </div>
+	</div>
 
-	  <div data-role="footer">
-	    <p>UEK Kraków 2017</p>
-	  </div>
-	</div> 
-
-<!-- 	<div data-role="page" id="pagetwo">
-	  <div data-role="header">
-	    <h1>Welcome To My Homepage</h1>
-	  </div>
-
+	<div data-role="page" data-dialog="true" id="addBook">
 	  <div data-role="main" class="ui-content">
-	    <p>This is Page Two. If you click on the link below, it will take you to Page One.</p>
-	    <a href="#pageone">Go to Page One</a>
+	  	<form>
+	  		<input type="text" name="Tytuł książki">
+	  		<input type="text" name="ISBN" />
+	  		<button type="submit">Dodaj</button>
+	  	</form>
+	    <a href="#home">Powrót</a>
 	  </div>
-
-	  <div data-role="footer">
-	    <h1>Footer Text</h1>
-	  </div>
-	</div>  -->
-	<div data-role="dialog" id="addBook">
-		<form>
-			<input type="text" name="title" />
-			<input type="text" name="isbn" />
-			<input type="date" name="date" />
-			<button type="submit">Dodaj</button>
-		</form>
 	</div>
 </body>
 </html>
