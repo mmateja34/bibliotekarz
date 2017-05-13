@@ -10,7 +10,7 @@
 		Mateusz Mateja, Piotr Duda
 	</author>
 	<platform name="android"></platform>
-	<icon src="/www/images/icon.png" />
+	<icon src="images/icon.png" />
 	
 	<plugin name="cordova-plugin-device" spec="~1.1.4" />
 	<plugin name="cordova-plugin-dialogs" spec="~1.3.1" />
