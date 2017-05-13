@@ -2,19 +2,16 @@
    <widget xmlns   = "http://www.w3.org/ns/widgets"
         xmlns:gap   = "http://phonegap.com/ns/1.0"
 		id          = "myfirstapp"
-        version     = "1.0.0" 
-        viewmodes   = "fullscreen">
+        version     = "1.0.0">
 
     <name>Bibliotekarz</name>
     <description>mobile app</description>
     <author href="http://mypersonalwebsite.com" email="johnbrown@gmail.com">
-		Mateusz Mateja, Piotr Duda
+		Mateusz Mateja
 	</author>
 	<platform name="android" />
 	<icon src="images/icon.png" />
 	
 	<plugin name="cordova-plugin-device" spec="~1.1.4" />
 	<plugin name="cordova-plugin-dialogs" spec="~1.3.1" />
-	<plugin name="cordova-plugin-splashscreen" />
-
 </widget>
