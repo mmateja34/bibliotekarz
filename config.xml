@@ -4,11 +4,12 @@
 		id          = "myfirstapp"
         version     = "1.0.0" >
 
-    <name>Business Card</name>
+    <name>Bibliotekarz</name>
     <description>mobile app</description>
     <author href="http://mypersonalwebsite.com" email="johnbrown@gmail.com">
 		Mateusz Mateja, Piotr Duda
 	</author>
+	<platform name="android"></platform>
 	<icon src="/www/images/icon.png" />
 	
 	<plugin name="cordova-plugin-device" spec="~1.1.4" />
