@@ -14,22 +14,33 @@
 	<script src="cordova.js"></script>
 </head>
 <body onload="init()">
-	<div data-role="page" id="pageone">
-	  <div data-theme="a" data-role="header">
-	    <h1>Welcome To My Homepage</h1>
+	<div data-role="page" id="homepage">
+	  <div data-role="header">
+	    <h1>Bibliotekarz</h1>
+	    <button><a href="#addBook">Dodaj książkę</a></button>
 	  </div>
 
 	  <div data-role="main" class="ui-content">
-	    <p>Welcome! If you click on the link below, it will take you to Page Two.</p>
-	    <a href="#pagetwo">Go to Page Two</a>
+	    <p>Moje książki</p>
+	    <table>
+	    	<tr>
+		    	<th>Tytuł książki</th>
+		    	<th>Termin oddania</th>
+		    	<th>Opłata</th>
+		    </tr>
+		    <tr>
+		    	<td></td>
+		    	<td></td>
+		    	<td></td>
+		    </tr>
 	  </div>
 
 	  <div data-role="footer">
-	    <h1>Footer Text</h1>
+	    <p>UEK Kraków 2017</p>
 	  </div>
 	</div> 
 
-	<div data-role="page" id="pagetwo">
+<!-- 	<div data-role="page" id="pagetwo">
 	  <div data-role="header">
 	    <h1>Welcome To My Homepage</h1>
 	  </div>
@@ -42,6 +53,14 @@
 	  <div data-role="footer">
 	    <h1>Footer Text</h1>
 	  </div>
-	</div> 
+	</div>  -->
+	<div data-role="dialog" id="addBook">
+		<form>
+			<input type="text" name="title" />
+			<input type="text" name="isbn" />
+			<input type="date" name="date" />
+			<button type="submit">Dodaj</button>
+		</form>
+	</div>
 </body>
 </html>
