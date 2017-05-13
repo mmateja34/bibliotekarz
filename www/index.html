@@ -3,46 +3,44 @@
 <html>
 <head>
 	<title></title>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="js/pgb.js"></script>
 	<script src="cordova.js"></script>
 	<link rel="stylesheet" href="themes/bibliotekarz.min.css" />
 	<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
-	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
-	<!-- Strona główna -->
-	<div data-role="page" id="mainPage">
-		<div data-role="header">
-			<h1>Text in header</h1>
-		</div>
-		<div data-role="main" class="ui-content">
-			<a href="#otherPage1" class="ui-btn">Go to other page</a>
-			<a href="#dialogWindow" class="ui-btn">Dialog</a>
-		</div>
-		<div data-role="footer">
-			<h1>Text in footer</h1>
-		</div>
-	</div>
+	<div data-role="page" id="pageone">
+	  <div data-role="header">
+	    <h1>Welcome To My Homepage</h1>
+	  </div>
 
-	<!-- Podstrona -->
-	<div data-role="page" id="otherPage1">
-		<a href="#mainPage" class="ui-btn">Go to main page</a>
-	</div>
+	  <div data-role="main" class="ui-content">
+	    <p>Welcome! If you click on the link below, it will take you to Page Two.</p>
+	    <a href="#pagetwo">Go to Page Two</a>
+	  </div>
 
-	<!-- Okno dialogowe -->
-	<div data-role="page" data-dialog="true" id="dialogWindow">
-		<div data-role="header">
-		<h1>Text in header</h1>
-			</div>
-		<div data-role="main" class="ui-content">
-			<p>Page content</p>
-		</div>
-		<div data-role="footer">
-			<h1>Text in footer</h1>
-		</div>
-	</div>
+	  <div data-role="footer">
+	    <h1>Footer Text</h1>
+	  </div>
+	</div> 
+
+	<div data-role="page" id="pagetwo">
+	  <div data-role="header">
+	    <h1>Welcome To My Homepage</h1>
+	  </div>
+
+	  <div data-role="main" class="ui-content">
+	    <p>This is Page Two. If you click on the link below, it will take you to Page One.</p>
+	    <a href="#pageone">Go to Page One</a>
+	  </div>
+
+	  <div data-role="footer">
+	    <h1>Footer Text</h1>
+	  </div>
+	</div> 
 </body>
 </html>
