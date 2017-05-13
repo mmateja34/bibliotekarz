@@ -6,8 +6,40 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<script src="js/pgb.js"></script>
 	<script src="cordova.js"></script>
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
 </head>
 <body>
+	<!-- Strona główna -->
+	<div data-role="page" id="mainPage">
+		<div data-role="header">
+			<h1>Text in header</h1>
+		</div>
+		<div data-role="main" class="ui-content">
+			<a href="#otherPage1" class="ui-btn">Go to other page</a>
+		</div>
+		<div data-role="footer">
+			<h1>Text in footer</h1>
+		</div>
+	</div>
 
+	<!-- Podstrona -->
+	<div data-role="page" id="otherPage1">
+		<a href="#mainPage" class="ui-btn">Go to main page</a>
+	</div>
+
+	<!-- Okno dialogowe -->
+	<div data-role="page" data-dialog="true" id="dialogWindow">
+		<div data-role="header">
+		<h1>Text in header</h1>
+			</div>
+		<div data-role="main" class="ui-content">
+			<p>Page content</p>
+		</div>
+		<div data-role="footer">
+			<h1>Text in footer</h1>
+		</div>
+	</div>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
 </body>
 </html>
