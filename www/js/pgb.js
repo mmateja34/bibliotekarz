@@ -26,8 +26,29 @@ fuction dbReady(){
 			var isbn = "isbn";
 			var title = "title";
 			var createdAt = new Date();
-			createdAt.setDate(createdAt.getDate() - randRange(1,30));
+			createdAt.setDate(createdAt.getDate());
 			tx.executeSql("insert into books(isbn, title, createdAt) values(?,?,?)",[isbn, title, createdAt.getTime()]);
 		}, errorHandler, function() {alert("Książka została dodana")});
 	});
+
+	$('#get-books-button').on("touchstart", function(e){
+		db.transaction(function(tx){
+			tx.executeSql("select * from books order by createdAt asc", [], getBooks, errorHandler);
+		}, errorHandler, function() {});
+	});
 }
+
+function getBooks(tx, results){
+	if(results.rows.length == 0){
+		$('#results').html('Brak wyników');
+		return false;
+	}
+	var s = "";
+	for(var i=0; i<results.row.length; i++){
+		var createdAt = new Date();
+		createdAt.setTime(results.rows.item(i).createdAt);
+		s += createdAt.toDateString() + " " + createdAt.toTimeString() + "<br />";
+	}
+	$('#results').html(s);
+}
+
