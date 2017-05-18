@@ -28,18 +28,28 @@ function dbReady(){
 			var title = "title";
 			var createdAt = new Date();
 			createdAt.setDate(createdAt.getDate());
-			tx.executeSql("insert into books(isbn, title, createdAt) VALUES(?,?,?)",[isbn, title, createdAt]);
+			tx.executeSql("insert into books(isbn, title, createdAt) VALUES(?,?,?)",[isbn, title, createdAt.getTime()]);
 		}, errorHandler, function() {alert("Książka została dodana");});
 	});
 
 	$('#get-books-button').on("touchstart", function(e){
 		db.transaction(function(tx){
 			tx.executeSql("select * from books", [], getBooks, errorHandler);
-		}, errorHandler, function() {});
+		}, errorHandler, function() {alert("coś poszło nie tak")});
 	});
 }
 
 function getBooks(tx, results){
-	alert('uruchomilem funkcję getBooks');
+	if(results.rows.length == 0){
+		$('#results').html('Brak wyników');
+		return false;
+	}
+	var s = "";
+	for(var i=0; i<results.row.length; i++){
+		var createdAt = new Date();
+		createdAt.setTime(results.rows.item(i).createdAt);
+		s += createdAt.toDateString() + " " + createdAt.toTimeString() + "<br />";
+	}
+	$('#results').html(s);
 }
 
