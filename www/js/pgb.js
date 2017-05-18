@@ -1,39 +1,40 @@
-var db = null;
 
-function init() {
-	document.addEventListener('deviceready', function() {
-		db = window.openDatabase("bibliotekarz", "1.0", "bibliotekarz", 1000000);
-		db.transaction(setup, errorHandler, dbReady);
-	});
-
- 	var online = window.navigator.onLine;
+var db;
+function init(){
+	document.addEventListener('deviceready', deviceready, false);
+	var online = window.navigator.onLine;
     if (online) {
         navigator.notification.alert("Obecnie nie masz połączenia z Internetem. Połączenie jest niezbedne aby aplikacja działała poprawnie.");
     }
 }
 
+function deviceready(){
+	db = window.openDatabase("bibliotekarz", "1.0", "bibliotekarz", 1000000);
+	db.transaction(setup, errorHandler, dbReady);
+}
+
 function setup(tx){
-	tx.executeSql('create table if not exist books(id integer primary key autoincrement, isbn text, title text, createdAt date)');
+	tx.executeSql('create table if not exists books(id INTEGER PRIMARY KEY AUTOINCREMENT, isbn TEXT, title TEXT, createdAt DATE)');
 }
 
 function errorHandler(e){
 	alert(e.message);
 }
 
-fuction dbReady(){
+function dbReady(){
 	$('#add-book-button').on("touchstart", function(e){
 		db.transaction(function(tx){
 			var isbn = "isbn";
 			var title = "title";
 			var createdAt = new Date();
 			createdAt.setDate(createdAt.getDate());
-			tx.executeSql("insert into books(isbn, title, createdAt) values(?,?,?)",[isbn, title, createdAt.getTime()]);
-		}, errorHandler, function() {alert("Książka została dodana")});
+			tx.executeSql("insert into books(isbn, title, createdAt) VALUES(?,?,?)",[isbn, title, createdAt]);
+		}, errorHandler, function() {alert("Książka została dodana");});
 	});
 
 	$('#get-books-button').on("touchstart", function(e){
 		db.transaction(function(tx){
-			tx.executeSql("select * from books order by createdAt asc", [], getBooks, errorHandler);
+			tx.executeSql("select * from books", [], getBooks, errorHandler);
 		}, errorHandler, function() {});
 	});
 }
