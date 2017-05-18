@@ -40,16 +40,6 @@ function dbReady(){
 }
 
 function getBooks(tx, results){
-	if(results.rows.length == 0){
-		$('#results').html('Brak wyników');
-		return false;
-	}
-	var s = "";
-	for(var i=0; i<results.row.length; i++){
-		var createdAt = new Date();
-		createdAt.setTime(results.rows.item(i).createdAt);
-		s += createdAt.toDateString() + " " + createdAt.toTimeString() + "<br />";
-	}
-	$('#results').html(s);
+	alert('uruchomilem funkcję getBooks');
 }
 
