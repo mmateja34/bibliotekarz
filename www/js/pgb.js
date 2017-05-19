@@ -45,7 +45,7 @@ function getBooks(tx, results){
 		return false;
 	}
 	var s = "";
-	for(var i=0; i<results.row.length; i++){
+	for(var i=0; i<results.rows.length; i++){
 		var createdAt = new Date();
 		createdAt.setTime(results.rows.item(i).createdAt);
 		s += createdAt.toDateString() + " " + createdAt.toTimeString() + "<br />";
