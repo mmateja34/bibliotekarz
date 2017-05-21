@@ -14,7 +14,9 @@ function deviceready(){
 }
 
 function setup(tx){
-	tx.executeSql('create table if not exists books(id INTEGER PRIMARY KEY AUTOINCREMENT, isbn TEXT, title TEXT, createdAt DATE)');
+	//do usunięcia później
+	tx.executeSql('drop table books');
+	tx.executeSql('create table if not exists books(id INTEGER PRIMARY KEY AUTOINCREMENT, isbn TEXT, title TEXT, borrowDate DATE)');
 }
 
 function errorHandler(e){
@@ -22,34 +24,43 @@ function errorHandler(e){
 }
 
 function dbReady(){
-	$('#add-book-button').on("touchstart", function(e){
+	var $form = $('#addBook').find('.add-new-book');
+	var isbn = $form.find('input[name="isbn"]').val();
+	var title = $form.find('input[name="title"]').val();
+	var borrowDate = $form.find('input[name="date"]').val();
+
+	//do rozpisania walidacja
+	//czy pola uzupełnione, czy data nie jest późniejsza niż dziś
+
+	$form.on('submit', function(){
 		db.transaction(function(tx){
-			var isbn = "isbn";
-			var title = "title";
-			var createdAt = new Date();
-			createdAt.setDate(createdAt.getDate());
-			tx.executeSql("insert into books(isbn, title, createdAt) VALUES(?,?,?)",[isbn, title, createdAt.getTime()]);
-		}, errorHandler, function() {alert("Książka została dodana");});
+			tx.executeSql("insert into books(isbn, title, borrowDate) VALUES(?,?,?)",[isbn, title, borrowDate]);
+		},
+		errorHandler, 
+		function() {
+			alert("Książka została dodana");
+		});
 	});
 
-	$('#get-books-button').on("touchstart", function(e){
+	$('#books-list').find(".results", function(){
 		db.transaction(function(tx){
 			tx.executeSql("select * from books", [], getBooks, errorHandler);
-		}, errorHandler, function() {alert("coś poszło nie tak")});
+		}, errorHandler, function() {});
 	});
 }
 
 function getBooks(tx, results){
 	if(results.rows.length == 0){
-		$('#results').html('Brak wyników');
+		$('.results').html('Brak wyników');
 		return false;
 	}
 	var s = "";
 	for(var i=0; i<results.rows.length; i++){
-		var createdAt = new Date();
-		createdAt.setTime(results.rows.item(i).createdAt);
-		s += createdAt.toDateString() + " " + createdAt.toTimeString() + "<br />";
+		var isbn = results.rows.item(i).isbn;
+		var title = results.rows.item(i).title;
+		var borrowDate = results.rows.item(i).borrowDate;
+		s += "<tr><td>" + i + "</td><td>" + title + "</td><td>" + borrowDate + "</td></tr>";
 	}
-	$('#results').html(s);
+	$('.results').html(s);
 }
 
