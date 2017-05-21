@@ -40,6 +40,10 @@ function dbReady(){
 		errorHandler, 
 		queryForBooks);
 	});
+	
+	$('#refresh').on('touchstart', function () {
+        $('#books-list').trigger('create');
+    });
 }
 
 function queryForBooks() {
