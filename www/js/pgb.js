@@ -76,16 +76,27 @@ function getBooks(tx, results){
 	$results.html(s);
 }
 
-function showBook(tx, result){
+function showBook(tx, results){
     var $bookDetails = $('#book-details');
-    if(result.length === 0){
+    if(results.rows.length === 0){
         alert("Nie znaleziono książki");
         $bookDetails.find('.show-title').html('Brak wyników');
         return false;
     }
-    $bookDetails.find('.show-title').html(result['title']);
-    $bookDetails.find('.show-isbn').html(result['isbn']);
-    $bookDetails.find('.show-isbn').html(result['borrowDate']);
+    $bookDetails.find('.show-title').html(results.rows.item(0)['title']);
+    $bookDetails.find('.show-isbn').html(results.rows.item(0)['isbn']);
+    $bookDetails.find('.show-isbn').html(results.rows.item(0)['borrowDate']);
+    $bookDetails.find('.show-payment').html(calculate(results.rows.item(0)['borrowDate']));
+}
+
+function calculate(date){
+    var today = new Date();
+    var payment = 0;
+    if (parseInt(today - date) > 30){
+        payment = (parseInt(today - date) - 30) * 0.20;
+        return payment;
+    }
+    return payment;
 }
 
 
