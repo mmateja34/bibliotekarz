@@ -24,19 +24,16 @@ function errorHandler(e){
 function dbReady(){
     queryForBooks();
 
+	var $form = $('#add-new-book');
+
 	//do rozpisania walidacja
 	//czy pola uzupełnione, czy data nie jest późniejsza niż dziś
 
-	$('#add-new-book').on('submit', function(){
-        var $inputs = $('#add-new-book:input');
+	$form.on('submit', function(){
+        var isbn = $form.find('input[name="isbn"]').val();
+        var title = $form.find('input[name="title"]').val();
+        var borrowDate = $form.find('input[name="date"]').val();
 
-        var values = {};
-        $inputs.each(function() {
-            values[$(this).name] = $(this).val();
-        });
-        var isbn = values['isbn'];
-        var title = values['title'];
-        var borrowDate = values['borrowDate'];
 		db.transaction(function(tx){
 			tx.executeSql("insert into books(isbn, title, borrowDate) VALUES(?,?,?)",[isbn, title, borrowDate]);
 		},
