@@ -32,11 +32,10 @@ function dbReady(){
 	$form.on('submit', function(){
         var isbn = $form.find('input[name="isbn"]').val();
         var title = $form.find('input[name="title"]').val();
-        var borrowDate = new Date();
-        borrowDate.setDate($form.find('input[name="date"]').val());
+        var borrowDate = new Date($form.find('input[name="date"]').val());
 
 		db.transaction(function(tx){
-			tx.executeSql("insert into books(isbn, title, borrowDate) VALUES(?,?,?)",[isbn, title, borrowDate]);
+			tx.executeSql("insert into books(isbn, title, borrowDate) VALUES(?,?,?)",[isbn, title, borrowDate.getTime()]);
 		},
 		errorHandler, 
 		queryForBooks);
