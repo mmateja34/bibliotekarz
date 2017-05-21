@@ -14,8 +14,6 @@ function deviceready(){
 }
 
 function setup(tx){
-	//do usunięcia później
-	tx.executeSql('drop table books');
 	tx.executeSql('create table if not exists books(id INTEGER PRIMARY KEY AUTOINCREMENT, isbn TEXT, title TEXT, borrowDate DATE)');
 }
 
@@ -45,13 +43,14 @@ function dbReady(){
 	$('#books-list').find(".results", function(){
 		db.transaction(function(tx){
 			tx.executeSql("select * from books", [], getBooks, errorHandler);
-		}, errorHandler, function() {});
+		}, errorHandler, function() {alert('Pobrano książki z bazy danych')});
 	});
 }
 
 function getBooks(tx, results){
-	if(results.rows.length == 0){
-		$('.results').html('Brak wyników');
+	var $results = $('.results');
+	if(results.rows.length === 0){
+		$results.html('Brak wyników');
 		return false;
 	}
 	var s = "";
@@ -61,6 +60,6 @@ function getBooks(tx, results){
 		var borrowDate = results.rows.item(i).borrowDate;
 		s += "<tr><td>" + i + "</td><td>" + title + "</td><td>" + borrowDate + "</td></tr>";
 	}
-	$('.results').html(s);
+	$results.html(s);
 }
 
