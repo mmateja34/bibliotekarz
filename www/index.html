@@ -15,7 +15,6 @@
 	<div data-role="header">
     	<h1>Bibliotekarz</h1>
     	<a href="#addBook">Dodaj książkę</a>
-    	<button id="get-books-button">Moje książki</button>
   	</div>
 	  <div data-role="main" class="ui-content" id="books-list">
 	  	<h1>Moje książki</h1>
@@ -33,11 +32,11 @@
 
 	<div data-role="page" data-dialog="true" id="addBook">
 	  <div data-role="main" class="ui-content">
-	  	<form class="add-new-book">
+	  	<form id="add-new-book">
 	  		<input type="text" name="title" placeholder="Tytuł książki" />
 	  		<input type="text" name="isbn" placeholder="ISBN" />
 	  		Data wypożyczenia <br />
-	  		<input type="date" name="date" />
+	  		<input title="borrowDate" type="date" name="borrowDate" />
 	  		<button id="add-book-button" type="submit">Dodaj</button>
 	  	</form>
 	    <a href="#home">Powrót</a>

@@ -3,7 +3,7 @@ var db;
 function init(){
 	document.addEventListener('deviceready', deviceready, false);
 	var online = window.navigator.onLine;
-    if (online) {
+    if (!online) {
         navigator.notification.alert("Obecnie nie masz połączenia z Internetem. Połączenie jest niezbedne aby aplikacja działała poprawnie.");
     }
 }
@@ -22,29 +22,33 @@ function errorHandler(e){
 }
 
 function dbReady(){
-	var $form = $('#addBook').find('.add-new-book');
-	var isbn = $form.find('input[name="isbn"]').val();
-	var title = $form.find('input[name="title"]').val();
-	var borrowDate = $form.find('input[name="date"]').val();
+    queryForBooks();
 
 	//do rozpisania walidacja
 	//czy pola uzupełnione, czy data nie jest późniejsza niż dziś
 
-	$form.on('submit', function(){
+	$('#add-new-book').on('submit', function(){
+        var $inputs = $('#add-new-book:input');
+
+        var values = {};
+        $inputs.each(function() {
+            values[$(this).name] = $(this).val();
+        });
+        var isbn = values['isbn'];
+        var title = values['title'];
+        var borrowDate = values['borrowDate'];
 		db.transaction(function(tx){
 			tx.executeSql("insert into books(isbn, title, borrowDate) VALUES(?,?,?)",[isbn, title, borrowDate]);
 		},
 		errorHandler, 
-		function() {
-			alert("Książka została dodana");
-		});
+		queryForBooks);
 	});
+}
 
-	$('#books-list').find(".results", function(){
-		db.transaction(function(tx){
-			tx.executeSql("select * from books", [], getBooks, errorHandler);
-		}, errorHandler, function() {alert('Pobrano książki z bazy danych')});
-	});
+function queryForBooks() {
+    db.transaction(function(tx){
+        tx.executeSql("select * from books", [], getBooks, errorHandler);
+    }, errorHandler, function() {alert('Pobrano książki z bazy danych')});
 }
 
 function getBooks(tx, results){
@@ -55,9 +59,9 @@ function getBooks(tx, results){
 	}
 	var s = "";
 	for(var i=0; i<results.rows.length; i++){
-		var isbn = results.rows.item(i).isbn;
-		var title = results.rows.item(i).title;
-		var borrowDate = results.rows.item(i).borrowDate;
+		var isbn = results.rows.item(i)['isbn'];
+		var title = results.rows.item(i)['title'];
+		var borrowDate = results.rows.item(i)['borrowDate'];
 		s += "<tr><td>" + i + "</td><td>" + title + "</td><td>" + borrowDate + "</td></tr>";
 	}
 	$results.html(s);
