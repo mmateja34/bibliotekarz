@@ -44,6 +44,13 @@ function dbReady(){
 	$('#refresh').on('touchstart', function () {
         $('#books-list').trigger('create');
     });
+
+	$('.show-book').on('touchstart', function () {
+        var id = $(this).data('id');
+        db.transaction(function(tx){
+            tx.executeSql("select book from books where id = (?)", [id], showBook, errorHandler);
+        }, errorHandler, function() {});
+    })
 }
 
 function queryForBooks() {
@@ -60,11 +67,25 @@ function getBooks(tx, results){
 	}
 	var s = "";
 	for(var i=0; i<results.rows.length; i++){
+	    var id = results.rows.item(i)['id'];
 		var isbn = results.rows.item(i)['isbn'];
 		var title = results.rows.item(i)['title'];
 		var borrowDate = results.rows.item(i)['borrowDate'];
-		s += "<tr><td>" + i + "</td><td>" + title + "</td><td>" + borrowDate + "</td></tr>";
+		s += '<tr><td>' + i + '</td><td><a href="#book-details" class="show-book" data-id="' + id + '">' + title + '</a></td><td>' + borrowDate + '</td></tr>';
 	}
 	$results.html(s);
 }
+
+function showBook(tx, result){
+    var $bookDetails = $('#book-details');
+    if(result.length === 0){
+        alert("Nie znaleziono książki");
+        $bookDetails.find('.show-title').html('Brak wyników');
+        return false;
+    }
+    $bookDetails.find('.show-title').html(result['title']);
+    $bookDetails.find('.show-isbn').html(result['isbn']);
+    $bookDetails.find('.show-isbn').html(result['borrowDate']);
+}
+
 
