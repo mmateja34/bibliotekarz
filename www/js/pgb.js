@@ -48,7 +48,7 @@ function dbReady(){
 	$('.show-book').on('touchstart', function () {
         var id = $(this).data('id');
         db.transaction(function(tx){
-            tx.executeSql("select book from books where id = (?)", [id], showBook, errorHandler);
+            tx.executeSql("select * from books where id = (?)", [id], showBook, errorHandler);
         }, errorHandler, function() {});
     })
 }
@@ -56,7 +56,7 @@ function dbReady(){
 function queryForBooks() {
     db.transaction(function(tx){
         tx.executeSql("select * from books", [], getBooks, errorHandler);
-    }, errorHandler, function() {alert('Pobrano książki z bazy danych')});
+    }, errorHandler, function() {});
 }
 
 function getBooks(tx, results){
