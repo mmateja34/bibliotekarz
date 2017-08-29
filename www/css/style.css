@@ -2,3 +2,8 @@
 	background-color: red;
 	color: #FFF;
 }
+
+h1{
+	text-align: center;
+	font-weight: 300 !important;
+}

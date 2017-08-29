@@ -10,17 +10,18 @@
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/jquery.mobile-1.4.5.min.js"></script>
     <link rel="stylesheet" href="fa/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body onload="init()">
 	<div data-role="page" id="home">
 	<div data-role="header">
     	<h1>Bibliotekarz</h1>
-    	<a href="#addBook">Dodaj książkę</a>
-		<a href="javascript:;" id="refresh"><i class="fa fa-refresh"></i></a>
+    	<a class="ui-btn" href="#addBook">Dodaj książkę</a>
+		<a class="ui-btn" href="javascript:;" id="refresh"><i class="fa fa-refresh"></i></a>
   	</div>
 	  <div data-role="main" class="ui-content" id="books-list">
 	  	<h1>Moje książki</h1>
-	    <table>
+	    <table class="ui-responsive table-stroke" style="width: 100%;">
 	    	<tr>
 	    		<th>Lp.</th>
 	    		<th>Tytuł</th>
