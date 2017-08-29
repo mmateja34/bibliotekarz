@@ -36,13 +36,21 @@ function dbReady(){
         var title = $form.find('input[name="title"]').val();
         var borrowDate = new Date($form.find('input[name="date"]').val());
         var imageURI = $('#book-photo').attr(src);
-        alert(imageURI);
+        if (imageURI.length > 0) {
+            imageURI = null;
+        }
 
-		db.transaction(function(tx){
-			tx.executeSql("insert into books(isbn, title, borrowDate, photo) VALUES(?,?,?,?)",[isbn, title, borrowDate.getTime(), imageURI]);
-		},
-		errorHandler, 
-		queryForBooks);
+        if (isbn.length === 0 || title.length === 0 || borrowDate === 0) {
+            alert('Proszę uzupełnić wszyskie pola wymagane.');
+            $('#addBook').dialog('show');
+        } else{
+    		db.transaction(function(tx){
+    			tx.executeSql("insert into books(isbn, title, borrowDate, photo) VALUES(?,?,?,?)",[isbn, title, borrowDate.getTime(), imageURI]);
+    		},
+    		errorHandler, 
+    		queryForBooks);
+        }
+
 	});
 	
 	$('#refresh').on('touchstart', function () {
