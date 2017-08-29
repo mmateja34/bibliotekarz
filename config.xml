@@ -12,6 +12,13 @@
 	<platform name="android" />
 	<icon src="images/icon.png" />
 	<splash src="splash.png" />
+	<splash src="splash.png" platform="android" qualifier="ldpi" />
+	<splash src="splash.png" platform="android" qualifier="mdpi" />
+	<splash src="splash.png" platform="android" qualifier="hdpi" />
+	<splash src="splash.png" platform="android" qualifier="xhdpi" />
+	<splash src="splash.png" platform="android" qualifier="fr-xhdpi" />
+	<splash src="splash.png" platform="android" qualifier="port-xxhdpi" />
+	<splash src="splash.png" platform="android" qualifier="land-xxhdpi" />
 	
 	<plugin name="cordova-plugin-device" spec="~1.1.4" />
 	<plugin name="cordova-plugin-dialogs" spec="~1.3.1" />
