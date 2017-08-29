@@ -7,3 +7,7 @@ h1{
 	text-align: center;
 	font-weight: 300 !important;
 }
+
+#book-photo{
+	max-width: 50%;
+}

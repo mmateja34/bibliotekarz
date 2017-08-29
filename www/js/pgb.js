@@ -14,7 +14,8 @@ function deviceready(){
 }
 
 function setup(tx){
-	tx.executeSql('create table if not exists books(id INTEGER PRIMARY KEY AUTOINCREMENT, isbn TEXT, title TEXT, borrowDate DATE, photo TEXT)');
+	// tx.executeSql('create table if not exists books(id INTEGER PRIMARY KEY AUTOINCREMENT, isbn TEXT, title TEXT, borrowDate DATE, photo TEXT)');
+    tx.executeSql('drop table books');
 }
 
 function errorHandler(e){
@@ -35,6 +36,7 @@ function dbReady(){
         var isbn = $form.find('input[name="isbn"]').val();
         var title = $form.find('input[name="title"]').val();
         var borrowDate = new Date($form.find('input[name="date"]').val());
+        var imageURI = $('#book-photo').attr(src);
 
 		db.transaction(function(tx){
 			tx.executeSql("insert into books(isbn, title, borrowDate, photo) VALUES(?,?,?,?)",[isbn, title, borrowDate.getTime()]);
@@ -109,7 +111,6 @@ function accessCamera() {
 function onSuccess(imageURI) {
     var image = document.getElementById('book-photo');
     image.src = imageURI;
-    var uri = imageURI;
 }
 
 function onFail(message) {
