@@ -14,8 +14,8 @@ function deviceready(){
 }
 
 function setup(tx){
-	// tx.executeSql('create table if not exists books(id INTEGER PRIMARY KEY AUTOINCREMENT, isbn TEXT, title TEXT, borrowDate DATE)');
-    tx.executeSql('drop table books');
+	tx.executeSql('create table if not exists books(id INTEGER PRIMARY KEY AUTOINCREMENT, isbn TEXT, title TEXT, borrowDate DATE)');
+    // tx.executeSql('drop table books');
 }
 
 function errorHandler(e){
