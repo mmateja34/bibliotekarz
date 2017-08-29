@@ -14,8 +14,7 @@ function deviceready(){
 }
 
 function setup(tx){
-	// tx.executeSql('create table if not exists books(id INTEGER PRIMARY KEY AUTOINCREMENT, isbn TEXT, title TEXT, borrowDate DATE, photo TEXT)');
-    tx.executeSql('drop table books');
+	tx.executeSql('create table if not exists books(id INTEGER PRIMARY KEY AUTOINCREMENT, isbn TEXT, title TEXT, borrowDate DATE, photo TEXT)');
 }
 
 function errorHandler(e){
@@ -39,7 +38,7 @@ function dbReady(){
         var imageURI = $('#book-photo').attr(src);
 
 		db.transaction(function(tx){
-			tx.executeSql("insert into books(isbn, title, borrowDate, photo) VALUES(?,?,?,?)",[isbn, title, borrowDate.getTime()]);
+			tx.executeSql("insert into books(isbn, title, borrowDate, photo) VALUES(?,?,?,?)",[isbn, title, borrowDate.getTime(), imageURI]);
 		},
 		errorHandler, 
 		queryForBooks);
