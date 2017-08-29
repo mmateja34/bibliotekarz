@@ -14,7 +14,7 @@ function deviceready(){
 }
 
 function setup(tx){
-	tx.executeSql('create table if not exists books(id INTEGER PRIMARY KEY AUTOINCREMENT, isbn TEXT, title TEXT, borrowDate DATE)');
+	tx.executeSql('create table if not exists books(id INTEGER PRIMARY KEY AUTOINCREMENT, isbn TEXT, title TEXT, borrowDate DATE, photo TEXT)');
 }
 
 function errorHandler(e){
@@ -26,6 +26,8 @@ function dbReady(){
 
 	var $form = $('#add-new-book');
 
+    $('#take-photo').on('click', accessCamera);
+
 	//do rozpisania walidacja
 	//czy pola uzupełnione, czy data nie jest późniejsza niż dziś
 
@@ -35,7 +37,7 @@ function dbReady(){
         var borrowDate = new Date($form.find('input[name="date"]').val());
 
 		db.transaction(function(tx){
-			tx.executeSql("insert into books(isbn, title, borrowDate) VALUES(?,?,?)",[isbn, title, borrowDate.getTime()]);
+			tx.executeSql("insert into books(isbn, title, borrowDate, photo) VALUES(?,?,?,?)",[isbn, title, borrowDate.getTime()]);
 		},
 		errorHandler, 
 		queryForBooks);
@@ -99,4 +101,17 @@ function calculate(date){
     return payment;
 }
 
+function accessCamera() {
+    navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+    destinationType: Camera.DestinationType.FILE_URI });
+}
 
+function onSuccess(imageURI) {
+    var image = document.getElementById('book-photo');
+    image.src = imageURI;
+    var uri = imageURI;
+}
+
+function onFail(message) {
+    alert('Failed because: ' + message);
+}
