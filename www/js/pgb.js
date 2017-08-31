@@ -149,7 +149,9 @@ var retries = 0;
 function onSuccess(imageURI) {
     var image = document.getElementById('book-photo');
     image.src = imageURI;
-    console.log(imageURI);
+    var name = Math.random().toString(36).substring(2);
+    $('book-photo').data('name') = name;
+    console.log(image);
 
     var win = function (r) {
         clearCache();
