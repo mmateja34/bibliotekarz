@@ -67,7 +67,12 @@ function dbReady(){
         db.transaction(function(tx){
             tx.executeSql("select * from books where id = (?)", [id], showBook, errorHandler);
         }, errorHandler, function() {});
-    })
+    });
+
+    $('#show-form').on('touchstart', function () {
+        $('#add-new-book').find('input').val('');
+        $('#book-photo').src = "";
+    });
 }
 
 function queryForBooks() {
