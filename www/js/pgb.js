@@ -57,9 +57,7 @@ function dbReady(){
         accessCamera();
     });
 	
-	$('#refresh').on('touchstart', function () {
-        $('#books-list').trigger('create');
-    });
+	$('#refresh').on('touchstart', refresh);
 
 	$('.results').on('touchstart', '.show-book', function () {
         var id = $(this).data('id');
@@ -73,6 +71,7 @@ function dbReady(){
        db.transaction(function(tx){
             tx.executeSql("delete from books where id = (?)", [id]);
         }, errorHandler, function() {});
+       refresh();
     });
 
     $('#show-form').on('touchstart', function () {
@@ -185,4 +184,9 @@ function onFail(message) {
 
 function clearCache() {
     navigator.camera.cleanup();
+}
+
+function refresh(event) {
+    event.preventDefault();
+    $('#books-list').trigger('create');
 }
