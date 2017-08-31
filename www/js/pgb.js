@@ -37,8 +37,9 @@ function dbReady(){
         var imageURI = $('#book-photo').attr('src');
         if (imageURI.length > 0) {
             imageURI = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+        } else{
+            imageURI = "b/d";
         }
-        imageURI = "b/d";
 
         if (isbn.length === 0 || title.length === 0 || borrowDate === 0 || imageURI === 0) {
             alert('Proszę uzupełnić wszyskie pola wymagane oraz wykonać zdjęcie książki.');
@@ -119,8 +120,11 @@ function showBook(tx, results){
         $bookDetails.find('.show-title').html('Brak wyników');
         return false;
     }
-
-    $bookDetails.find('.show-isbn').html(results.rows.item(0)['isbn']);
+    console.log(results.rows.item(0)['photo']);
+    var image = document.getElementById('book-photo');
+    var imageURI = "http://minimalic.usermd.net/bibliotekarz/images/" + results.rows.item(0)['photo'];
+    image.src = imageURI
+    console.log(imageURI);
     var borrowDate = results.rows.item(0)['borrowDate'];
     $bookDetails.find('.show-borrow-date').html(borrowDate);
     var deadline = borrowDate + 30 * 24 * 60 * 60 * 1000;
