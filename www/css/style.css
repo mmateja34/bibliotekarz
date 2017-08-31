@@ -11,3 +11,7 @@ h1{
 #book-photo{
 	max-width: 50%;
 }
+
+#book-preview img{
+	max-width: 50%;
+}
