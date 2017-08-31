@@ -57,10 +57,13 @@ function dbReady(){
         accessCamera();
     });
 	
-	$('#refresh').on('touchstart', refresh);
+	$('#refresh').on('touchstart', function () {
+        $('#books-list').trigger('create');
+    });
 
 	$('.results').on('touchstart', '.show-book', function () {
         var id = $(this).data('id');
+        $('#book-details').trigger('create');
         db.transaction(function(tx){
             tx.executeSql("select * from books where id = (?)", [id], showBook, errorHandler);
         }, errorHandler, function() {});
@@ -71,7 +74,7 @@ function dbReady(){
        db.transaction(function(tx){
             tx.executeSql("delete from books where id = (?)", [id]);
         }, errorHandler, function() {});
-       refresh();
+       $('#books-list').trigger('create');
     });
 
     $('#show-form').on('touchstart', function () {
@@ -104,7 +107,7 @@ function getBooks(tx, results){
         s += '<tr style = ><td>' 
             + i + '</td><td><a href="#book-details" class="show-book" data-id="' + id + '">' 
             + title + '</a></td><td>' 
-            + days + '</td><td><button class="remove-book" data-id="' + id + '">Oddaj</button></td></tr>';
+            + days + ' dni</td><td><button class="remove-book" data-id="' + id + '">Oddaj</button></td></tr>';
 	}
 	$results.html(s);
 }
@@ -123,7 +126,7 @@ function showBook(tx, results){
     var deadline = borrowDate + 30 * 24 * 60 * 60 * 1000;
     var today = new Date();
     var days = Math.round((deadline - today.getTime()) / 24 / 60 / 60 / 1000);
-    $bookDetails.find('.show-deadline-date').html(days);
+    $bookDetails.find('.show-deadline-date').html(days + ' dni');
     $bookDetails.find('.show-payment').html(calculate(days));
 }
 
@@ -186,7 +189,6 @@ function clearCache() {
     navigator.camera.cleanup();
 }
 
-function refresh(event) {
-    event.preventDefault();
+function refresh() {
     $('#books-list').trigger('create');
 }
