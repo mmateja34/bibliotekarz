@@ -35,7 +35,8 @@ function dbReady(){
         var title = $form.find('input[name="title"]').val();
         var borrowDate = new Date($form.find('input[name="date"]').val());
         var imageURI = $('#book-photo').attr('src');
-        if (imageURI.length > 0) {
+        imageURI = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+        if (imageURI.length == 0) {
             imageURI = "bd";
         }
         console.log(imageURI);
@@ -146,7 +147,7 @@ function onSuccess(imageURI) {
     }
 
     var options = new FileUploadOptions();
-    options.fileKey = "file";
+    options.fileKey = "upfile";
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
 
     console.log(imageURI.substr(imageURI.lastIndexOf('/') + 1));
