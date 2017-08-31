@@ -27,12 +27,11 @@ function dbReady(){
 
 	var $form = $('#add-new-book');
 
-    $('#take-photo').on('click', accessCamera);
-
 	//do rozpisania walidacja
 	//czy pola uzupełnione, czy data nie jest późniejsza niż dziś
 
-	$form.on('submit', function(){
+	$form.on('submit', function(event){
+        event.preventDefault();
         var isbn = $form.find('input[name="isbn"]').val();
         var title = $form.find('input[name="title"]').val();
         var borrowDate = new Date($form.find('input[name="date"]').val());
@@ -42,18 +41,19 @@ function dbReady(){
         }
         console.log(imageURI);
 
-        if (isbn.length === 0 || title.length === 0 || borrowDate === 0) {
-            alert('Proszę uzupełnić wszyskie pola wymagane.');
-            $('#addBook').dialog('show');
+        if (isbn.length === 0 || title.length === 0 || borrowDate === 0 || imageURI === 0) {
+            alert('Proszę uzupełnić wszyskie pola wymagane oraz wykonać zdjęcie książki.');
         } else{
     		db.transaction(function(tx){
-    			tx.executeSql("insert into books(isbn, title, borrowDate, photo) VALUES(?,?,?,?)",[isbn, title, borrowDate.getTime(), photo]);
+    			tx.executeSql("insert into books(isbn, title, borrowDate, photo) VALUES(?,?,?,?)",[isbn, title, borrowDate.getTime(), imageURI]);
     		},
     		errorHandler, 
     		queryForBooks);
         }
 
 	});
+
+    $('#take-photo').on('touchstart', accessCamera);
 	
 	$('#refresh').on('touchstart', function () {
         $('#books-list').trigger('create');
@@ -118,11 +118,42 @@ function accessCamera() {
     destinationType: Camera.DestinationType.FILE_URI });
 }
 
+var retries = 0;
 function onSuccess(imageURI) {
     var image = document.getElementById('book-photo');
     image.src = imageURI;
+
+    var win = function (r) {
+        clearCache();
+        retries = 0;
+        alert('Done!');
+    }
+ 
+    var fail = function (error) {
+        if (retries == 0) {
+            retries ++
+            setTimeout(function() {
+                onCapturePhoto(fileURI)
+            }, 1000)
+        } else {
+            retries = 0;
+            clearCache();
+            alert('Nie udało się wysłać zdjęcia na serwer!');
+        }
+    }
+
+    var options = new FileUploadOptions();
+    options.fileKey = "file";
+    options.fileName = fileURI.substr(imageURI.lastIndexOf('/') + 1);
+    options.mimeType = "image/jpeg";
+    var ft = new FileTransfer();
+    ft.upload(imageURI, encodeURI("http://minimalic.usermd.net/upload"), win, fail, options);
 }
 
 function onFail(message) {
-    alert('Failed because: ' + message);
+    alert('Nie udało się wykonać zdjęcia: ' + message);
+}
+
+function clearCache() {
+    navigator.camera.cleanup();
 }
