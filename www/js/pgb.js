@@ -58,9 +58,7 @@ function dbReady(){
         accessCamera();
     });
 	
-	$('#refresh').on('touchstart', function () {
-        $('#books-list').trigger('create');
-    });
+	$('#refresh').on('touchstart', refresh);
 
 	$('.results').on('touchstart', '.show-book', function () {
         var id = $(this).data('id');
@@ -120,7 +118,6 @@ function showBook(tx, results){
         $bookDetails.find('.show-title').html('Brak wyników');
         return false;
     }
-    console.log(results.rows.item(0)['photo']);
     var image = document.getElementById('book-photo');
     var imageURI = "http://minimalic.usermd.net/bibliotekarz/images/" + results.rows.item(0)['photo'];
     image.src = imageURI
@@ -196,5 +193,5 @@ function clearCache() {
 }
 
 function refresh() {
-    $('#books-list').trigger('create');
+    window.location.reload(true);
 }
