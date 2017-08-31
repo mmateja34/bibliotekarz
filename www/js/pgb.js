@@ -133,7 +133,7 @@ function onSuccess(imageURI) {
         if (retries == 0) {
             retries ++
             setTimeout(function() {
-                onCapturePhoto(fileURI)
+                onSuccess(imageURI)
             }, 1000)
         } else {
             retries = 0;
@@ -144,7 +144,7 @@ function onSuccess(imageURI) {
 
     var options = new FileUploadOptions();
     options.fileKey = "file";
-    options.fileName = fileURI.substr(imageURI.lastIndexOf('/') + 1);
+    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
     options.mimeType = "image/jpeg";
     var ft = new FileTransfer();
     ft.upload(imageURI, encodeURI("http://minimalic.usermd.net/upload"), win, fail, options);
