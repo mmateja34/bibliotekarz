@@ -39,7 +39,6 @@ function dbReady(){
             imageURI = imageURI.substr(imageURI.lastIndexOf('/') + 1);
         }
         imageURI = "b/d";
-        console.log($form.find('input[name="borrowDate"]').val(), borrowDate);
 
         if (isbn.length === 0 || title.length === 0 || borrowDate === 0 || imageURI === 0) {
             alert('Proszę uzupełnić wszyskie pola wymagane oraz wykonać zdjęcie książki.');
@@ -94,7 +93,7 @@ function getBooks(tx, results){
 		var title = results.rows.item(i)['title'];
 		var borrowDate = results.rows.item(i)['borrowDate'];
         var deadline = new Date(borrowDate + 30 * 24 * 60 * 60 * 1000);
-        var days = (deadline - borrowDate) / 30 / 24 / 60 / 60 / 1000;
+        var days = (deadline.getTime() - borrowDate) / 30 / 24 / 60 / 60 / 1000;
         s += '<tr style = ><td>' 
             + i + '</td><td><a href="#book-details" class="show-book" data-id="' + id + '">' 
             + title + '</a></td><td>' 
