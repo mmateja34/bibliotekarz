@@ -30,8 +30,7 @@ function dbReady(){
 	//do rozpisania walidacja
 	//czy pola uzupełnione, czy data nie jest późniejsza niż dziś
 
-	$form.on('submit', function(event){
-        event.preventDefault();
+	$form.on('submit', function(){
         var isbn = $form.find('input[name="isbn"]').val();
         var title = $form.find('input[name="title"]').val();
         var borrowDate = new Date($form.find('input[name="date"]').val());
@@ -53,7 +52,10 @@ function dbReady(){
 
 	});
 
-    $('#take-photo').on('touchstart', accessCamera);
+    $('#take-photo').on('touchstart', function(event){
+        event.preventDefault();
+        accessCamera();
+    });
 	
 	$('#refresh').on('touchstart', function () {
         $('#books-list').trigger('create');
@@ -146,7 +148,9 @@ function onSuccess(imageURI) {
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+
     console.log(imageURI.substr(imageURI.lastIndexOf('/') + 1));
+
     options.mimeType = "image/jpeg";
     var ft = new FileTransfer();
     ft.upload(imageURI, encodeURI("http://minimalic.usermd.net/upload.php"), win, fail, options);
