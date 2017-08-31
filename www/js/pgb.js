@@ -94,6 +94,8 @@ function getBooks(tx, results){
 		var title = results.rows.item(i)['title'];
 		var borrowDate = results.rows.item(i)['borrowDate'];
 		s += '<tr><td>' + i + '</td><td><a href="#book-details" class="show-book" data-id="' + id + '">' + title + '</a></td><td>' + borrowDate + '</td></tr>';
+        var deadline = new Date(borrowDate + '+ 30');
+        console.log(parseInt(deadline - borrowDate));
 	}
 	$results.html(s);
 }
