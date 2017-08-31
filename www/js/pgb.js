@@ -61,7 +61,7 @@ function dbReady(){
         $('#books-list').trigger('create');
     });
 
-	$('.show-book').on('touchstart', function () {
+	$('.results').on('touchstart', '.show-book', function () {
         var id = $(this).data('id');
         db.transaction(function(tx){
             tx.executeSql("select * from books where id = (?)", [id], showBook, errorHandler);
@@ -94,7 +94,7 @@ function getBooks(tx, results){
 		var borrowDate = results.rows.item(i)['borrowDate'];
         var deadline = borrowDate + 30 * 24 * 60 * 60 * 1000;
         var today = new Date();
-        var days = (deadline - today.getTime()) / 24 / 60 / 60 / 1000;
+        var days = Math.round((deadline - today.getTime()) / 24 / 60 / 60 / 1000);
         s += '<tr style = ><td>' 
             + i + '</td><td><a href="#book-details" class="show-book" data-id="' + id + '">' 
             + title + '</a></td><td>' 
@@ -110,9 +110,14 @@ function showBook(tx, results){
         $bookDetails.find('.show-title').html('Brak wyników');
         return false;
     }
-    $bookDetails.find('.show-title').html(results.rows.item(0)['title']);
+console.log(results);
     $bookDetails.find('.show-isbn').html(results.rows.item(0)['isbn']);
-    $bookDetails.find('.show-isbn').html(results.rows.item(0)['borrowDate']);
+    var borrowDate = results.rows.item(0)['borrowDate'];
+    $bookDetails.find('.show-borrow-date').html(borrowDate);
+    var deadline = borrowDate + 30 * 24 * 60 * 60 * 1000;
+    var today = new Date();
+    var days = Math.round((deadline - today.getTime()) / 24 / 60 / 60 / 1000);
+    $bookDetails.find('.show-deadline-date').html(days);
     $bookDetails.find('.show-payment').html(calculate(results.rows.item(0)['borrowDate']));
 }
 
