@@ -35,10 +35,10 @@ function dbReady(){
         var title = $form.find('input[name="title"]').val();
         var borrowDate = new Date($form.find('input[name="date"]').val());
         var imageURI = $('#book-photo').attr('src');
-        imageURI = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-        if (imageURI.length == 0) {
-            imageURI = "bd";
+        if (imageURI.length > 0) {
+            imageURI = imageURI.substr(imageURI.lastIndexOf('/') + 1);
         }
+        imageURI = "bd";
         console.log(imageURI);
 
         if (isbn.length === 0 || title.length === 0 || borrowDate === 0 || imageURI === 0) {
