@@ -4,6 +4,7 @@
 <head>
 	<title></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 	<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'"> -->
 	<script src="js/rollbar.js"></script>
 	<script src="js/pgb.js"></script>			
 	<script src="cordova.js"></script>
@@ -55,7 +56,7 @@
             <h1 class="show-title"></h1>
         </div>
         <div data-role="main" class="ui-content">
-        	<img id="book-preview" />
+        	<div id="book-preview"></div>
             <strong>Numer ISBN: </strong><div class="show-isbn"></div>
             <strong>Data wypożyczenia: </strong><div class="show-borrow-date"></div>
             <strong>Termin oddania: </strong><div class="show-deadline-date"></div>

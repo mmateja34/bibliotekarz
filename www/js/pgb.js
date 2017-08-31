@@ -118,13 +118,12 @@ function showBook(tx, results){
         $bookDetails.find('.show-title').html('Brak wyników');
         return false;
     }
-    var image = document.getElementById('book-photo');
     var imageURI = "http://minimalic.usermd.net/bibliotekarz/images/" + results.rows.item(0)['photo'];
-    image.src = imageURI
-    console.log(imageURI);
+    $('#book-preview').html('<img src="' + imageURI + '" />');
     var borrowDate = results.rows.item(0)['borrowDate'];
-    $bookDetails.find('.show-borrow-date').html(borrowDate);
+    $bookDetails.find('.show-isbn').html(results.rows.item(0)['isbn']);
     var deadline = borrowDate + 30 * 24 * 60 * 60 * 1000;
+    $bookDetails.find('.show-borrow-date').html(new Date(borrowDate));
     var today = new Date();
     var days = Math.round((deadline - today.getTime()) / 24 / 60 / 60 / 1000);
     $bookDetails.find('.show-deadline-date').html(days + ' dni');
@@ -152,7 +151,6 @@ function onSuccess(imageURI) {
     image.src = imageURI;
     // var name = Math.random().toString(36).substring(2);
     // $('book-photo').data('name') = name;
-    console.log(image);
 
     var win = function (r) {
         clearCache();
@@ -176,8 +174,6 @@ function onSuccess(imageURI) {
     var options = new FileUploadOptions();
     options.fileKey = "upfile";
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-
-    console.log(imageURI.substr(imageURI.lastIndexOf('/') + 1));
 
     options.mimeType = "image/jpeg";
     var ft = new FileTransfer();
