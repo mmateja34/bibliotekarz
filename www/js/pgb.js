@@ -33,7 +33,7 @@ function dbReady(){
 	$form.on('submit', function(){
         var isbn = $form.find('input[name="isbn"]').val();
         var title = $form.find('input[name="title"]').val();
-        var borrowDate = new Date($form.find('input[name="date"]').val());
+        var borrowDate = new Date($form.find('input[name="borrowDate"]').val());
         var imageURI = $('#book-photo').attr('src');
         if (imageURI.length > 0) {
             imageURI = imageURI.substr(imageURI.lastIndexOf('/') + 1);
