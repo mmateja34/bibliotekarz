@@ -68,6 +68,13 @@ function dbReady(){
         }, errorHandler, function() {});
     });
 
+    $('.results').on('touchstart', '.remove-book', function() {
+       var id = $(this).data('id');
+       db.transaction(function(tx){
+            tx.executeSql("delete from books where id = (?)", [id]);
+        }, errorHandler, function() {});
+    });
+
     $('#show-form').on('touchstart', function () {
         $('#add-new-book').find('input').val('');
         $('#book-photo').src = "";
@@ -98,7 +105,7 @@ function getBooks(tx, results){
         s += '<tr style = ><td>' 
             + i + '</td><td><a href="#book-details" class="show-book" data-id="' + id + '">' 
             + title + '</a></td><td>' 
-            + days + '</td></tr>';
+            + days + '</td><td><button class="remove-book" data-id="' + id + '">Oddaj</button></td></tr>';
 	}
 	$results.html(s);
 }
