@@ -122,6 +122,7 @@ var retries = 0;
 function onSuccess(imageURI) {
     var image = document.getElementById('book-photo');
     image.src = imageURI;
+    console.log(imageURI);
 
     var win = function (r) {
         clearCache();
@@ -147,7 +148,7 @@ function onSuccess(imageURI) {
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
     options.mimeType = "image/jpeg";
     var ft = new FileTransfer();
-    ft.upload(imageURI, encodeURI("http://minimalic.usermd.net/upload"), win, fail, options);
+    ft.upload(imageURI, encodeURI("http://minimalic.usermd.net/upload.php"), win, fail, options);
 }
 
 function onFail(message) {
