@@ -38,8 +38,8 @@ function dbReady(){
         if (imageURI.length > 0) {
             imageURI = imageURI.substr(imageURI.lastIndexOf('/') + 1);
         }
-        imageURI = "bd";
-        console.log(imageURI);
+        imageURI = "b/d";
+        console.log($form.find('input[name="date"]').val(), borrowDate);
 
         if (isbn.length === 0 || title.length === 0 || borrowDate === 0 || imageURI === 0) {
             alert('Proszę uzupełnić wszyskie pola wymagane oraz wykonać zdjęcie książki.');
