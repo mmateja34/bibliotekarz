@@ -110,7 +110,7 @@ function showBook(tx, results){
         $bookDetails.find('.show-title').html('Brak wyników');
         return false;
     }
-console.log(results);
+
     $bookDetails.find('.show-isbn').html(results.rows.item(0)['isbn']);
     var borrowDate = results.rows.item(0)['borrowDate'];
     $bookDetails.find('.show-borrow-date').html(borrowDate);
@@ -118,14 +118,14 @@ console.log(results);
     var today = new Date();
     var days = Math.round((deadline - today.getTime()) / 24 / 60 / 60 / 1000);
     $bookDetails.find('.show-deadline-date').html(days);
-    $bookDetails.find('.show-payment').html(calculate(results.rows.item(0)['borrowDate']));
+    $bookDetails.find('.show-payment').html(calculate(days));
 }
 
-function calculate(date){
+function calculate(days){
     var today = new Date();
     var payment = 0;
-    if (parseInt(today - date) > 30){
-        payment = (parseInt(today - date) - 30) * 0.20;
+    if (days < 0){
+        payment = days * (-0.20);
         return payment;
     }
     return payment;
