@@ -127,7 +127,7 @@ function onSuccess(imageURI) {
     var win = function (r) {
         clearCache();
         retries = 0;
-        alert('Done!');
+        alert('Zdjęcie zostało poprawnie wysłane!');
     }
  
     var fail = function (error) {
@@ -146,6 +146,7 @@ function onSuccess(imageURI) {
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+    console.log(imageURI.substr(imageURI.lastIndexOf('/') + 1));
     options.mimeType = "image/jpeg";
     var ft = new FileTransfer();
     ft.upload(imageURI, encodeURI("http://minimalic.usermd.net/upload.php"), win, fail, options);
