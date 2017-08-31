@@ -92,8 +92,9 @@ function getBooks(tx, results){
 		var isbn = results.rows.item(i)['isbn'];
 		var title = results.rows.item(i)['title'];
 		var borrowDate = results.rows.item(i)['borrowDate'];
-        var deadline = new Date(borrowDate + 30 * 24 * 60 * 60 * 1000);
-        var days = (deadline.getTime() - borrowDate) / 30 / 24 / 60 / 60 / 1000;
+        var deadline = borrowDate + 30 * 24 * 60 * 60 * 1000;
+        console.log(borrowDate, deadline);
+        var days = (deadline - borrowDate) / 30 / 24 / 60 / 60 / 1000;
         s += '<tr style = ><td>' 
             + i + '</td><td><a href="#book-details" class="show-book" data-id="' + id + '">' 
             + title + '</a></td><td>' 
