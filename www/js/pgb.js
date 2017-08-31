@@ -149,8 +149,8 @@ var retries = 0;
 function onSuccess(imageURI) {
     var image = document.getElementById('book-photo');
     image.src = imageURI;
-    var name = Math.random().toString(36).substring(2);
-    $('book-photo').data('name') = name;
+    // var name = Math.random().toString(36).substring(2);
+    // $('book-photo').data('name') = name;
     console.log(image);
 
     var win = function (r) {
@@ -180,7 +180,7 @@ function onSuccess(imageURI) {
 
     options.mimeType = "image/jpeg";
     var ft = new FileTransfer();
-    ft.upload(imageURI, encodeURI("http://minimalic.usermd.net/upload.php"), win, fail, options);
+    ft.upload(imageURI, encodeURI("http://minimalic.usermd.net/bibliotekarz/"), win, fail, options);
 }
 
 function onFail(message) {
